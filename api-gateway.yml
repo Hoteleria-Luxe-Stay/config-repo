@@ -1,0 +1,144 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      # CORS GLOBAL (para Angular)
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            exposedHeaders:
+              - "Authorization"
+              - "Content-Type"
+            allowCredentials: true
+            maxAge: 3600
+
+      routes:
+        # Auth Service
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/auth/**
+
+        # Auth Service - Users endpoints
+        - id: auth-service-users
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/v1/users/**
+
+        # Hotel Service - Hoteles
+        - id: hotel-service-hoteles
+          uri: lb://hotel-service
+          predicates:
+            - Path=/api/v1/hoteles/**
+
+        # Hotel Service - Departamentos
+        - id: hotel-service-departamentos
+          uri: lb://hotel-service
+          predicates:
+            - Path=/api/v1/departamentos/**
+
+        # Hotel Service - Habitaciones
+        - id: hotel-service-habitaciones
+          uri: lb://hotel-service
+          predicates:
+            - Path=/api/v1/habitaciones/**
+
+        # Hotel Service - Tipos Habitacion
+        - id: hotel-service-tipos
+          uri: lb://hotel-service
+          predicates:
+            - Path=/api/v1/tipos-habitacion/**
+
+        # Reserva Service - Reservas
+        - id: reserva-service-reservas
+          uri: lb://reserva-service
+          predicates:
+            - Path=/api/v1/reservas/**
+
+        # Reserva Service - Mis Reservas
+        - id: reserva-service-mis-reservas
+          uri: lb://reserva-service
+          predicates:
+            - Path=/api/v1/mis-reservas/**
+
+        # Reserva Service - Clientes
+        - id: reserva-service-clientes
+          uri: lb://reserva-service
+          predicates:
+            - Path=/api/v1/clientes/**
+
+        # Reserva Service - Dashboard
+        - id: reserva-service-dashboard
+          uri: lb://reserva-service
+          predicates:
+            - Path=/api/v1/dashboard/**
+
+        # Reserva Service - Admin
+        - id: reserva-service-admin
+          uri: lb://reserva-service
+          predicates:
+            - Path=/api/v1/admin/**
+
+        # Notificacion Service
+        - id: notificacion-service
+          uri: lb://notificacion-service
+          predicates:
+            - Path=/api/v1/notificaciones/**
+
+        # Notificacion Service - Mis Notificaciones
+        - id: notificacion-service-mis
+          uri: lb://notificacion-service
+          predicates:
+            - Path=/api/v1/mis-notificaciones/**
+
+        # Notificacion Service - Plantillas
+        - id: notificacion-service-plantillas
+          uri: lb://notificacion-service
+          predicates:
+            - Path=/api/v1/plantillas/**
+
+        # Notificacion Service - Contacto
+        - id: notificacion-service-contacto
+          uri: lb://notificacion-service
+          predicates:
+            - Path=/api/v1/contacto/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty: DEBUG
