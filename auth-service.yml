@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/auth_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/auth_db}
     username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:cancer16}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -14,7 +14,7 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
   rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
+    host: ${SPRING_RABBITMQ_HOST:rabbitmq}
     port: ${SPRING_RABBITMQ_PORT:5672}
     username: ${SPRING_RABBITMQ_USERNAME:admin}
     password: ${SPRING_RABBITMQ_PASSWORD:admin123}
@@ -27,9 +27,9 @@ server:
 application:
   security:
     jwt:
-      secret-key: ${JWT_SECRET_KEY:mi_clave_secreta_super_segura_para_jwt_256_bits_minimo_requerido}
-      expiration: ${JWT_EXPIRATION:3600000}
-      refresh-expiration: ${JWT_REFRESH_EXPIRATION:86400000}
+      secret-key: ${JWT_SECRET_KEY:}
+      expiration: ${JWT_EXPIRATION:3600}
+      refresh-expiration: ${JWT_REFRESH_EXPIRATION:86400}
     password-reset-expiration-minutes: ${PASSWORD_RESET_EXPIRATION_MINUTES:15}
     password-reset-max-attempts: ${PASSWORD_RESET_MAX_ATTEMPTS:3}
     password-reset-block-minutes: ${PASSWORD_RESET_BLOCK_MINUTES:15}
@@ -39,7 +39,7 @@ application:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URL:http://discovery-service:8761/eureka}
 
 management:
   endpoints:

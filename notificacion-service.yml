@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/notificacion_db}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/notificacion_db}
     username: ${SPRING_DATASOURCE_USERNAME:root}
-    password: ${SPRING_DATASOURCE_PASSWORD:cancer16}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -14,13 +14,13 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
   rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
+    host: ${SPRING_RABBITMQ_HOST:rabbitmq}
     port: ${SPRING_RABBITMQ_PORT:5672}
     username: ${SPRING_RABBITMQ_USERNAME:admin}
     password: ${SPRING_RABBITMQ_PASSWORD:admin123}
 
   kafka:
-    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
     consumer:
       group-id: ${KAFKA_NOTIFICATION_GROUP_ID:notificacion-service}
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -29,28 +29,13 @@ spring:
         spring.json.trusted.packages: com.hotel.notificacion.internal.events
         spring.json.value.default.type: com.hotel.notificacion.internal.events.ReservaNotificationEvent
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ${MAIL_USERNAME:francolitobo@gmail.com}
-    password: ${MAIL_PASSWORD:jkzlkaoskitwcepe}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            trust: smtp.gmail.com
-
 klab:
   mail:
     host: ${MAIL_HOST:smtp.gmail.com}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:francolitobo@gmail.com}
-    password: ${MAIL_PASSWORD:jkzlkaoskitwcepe}
-    from-email: ${MAIL_FROM_EMAIL:${MAIL_USERNAME:francolitobo@gmail.com}}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    from-email: ${MAIL_FROM_EMAIL:${MAIL_USERNAME:}}
     from-name: ${MAIL_FROM_NAME:LuxeStay}
     start-tls: ${MAIL_STARTTLS:true}
 
@@ -75,7 +60,7 @@ internal:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: ${EUREKA_URL:http://discovery-service:8761/eureka}
 
 management:
   endpoints:
