@@ -28,7 +28,7 @@ app:
       password-reset-routing-key: ${RABBITMQ_PASSWORD_RESET_ROUTING_KEY:user.password.reset}
   notifications:
     sesion:
-      enabled: ${NOTIFICATION_SESION_ENABLED:false}
+      enabled: ${NOTIFICATION_SESION_ENABLED:true}
 
 server:
   port: ${SERVER_PORT:8081}

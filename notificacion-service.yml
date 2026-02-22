@@ -60,14 +60,14 @@ app:
       queue: ${RABBITMQ_CONTACTO_QUEUE:contacto.queue}
       routing-key: ${RABBITMQ_CONTACTO_ROUTING_KEY:contacto.routingkey}
     sesion:
-      exchange: ${RABBITMQ_SESION_EXCHANGE:sesion.exchange}
-      queue: ${RABBITMQ_SESION_QUEUE:sesion.queue}
-      routing-key: ${RABBITMQ_SESION_ROUTING_KEY:sesion.routingkey}
+      exchange: ${RABBITMQ_SESION_EXCHANGE:hotel.events}
+      queue: ${RABBITMQ_SESION_QUEUE:notification.events.queue}
+      routing-key: ${RABBITMQ_SESION_ROUTING_KEY:user.#}
   notifications:
     reserva:
-      enabled: ${NOTIFICATION_RESERVA_ENABLED:false}
+      enabled: ${NOTIFICATION_RESERVA_ENABLED:true}
     sesion:
-      enabled: ${NOTIFICATION_SESION_ENABLED:false}
+      enabled: ${NOTIFICATION_SESION_ENABLED:true}
     contacto:
       enabled: ${NOTIFICATION_CONTACTO_ENABLED:true}
 
