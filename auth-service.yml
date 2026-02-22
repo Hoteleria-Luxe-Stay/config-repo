@@ -19,6 +19,17 @@ spring:
     username: ${SPRING_RABBITMQ_USERNAME:admin}
     password: ${SPRING_RABBITMQ_PASSWORD:admin123}
 
+app:
+  rabbitmq:
+    sesion:
+      exchange: ${RABBITMQ_SESION_EXCHANGE:hotel.events}
+      login-routing-key: ${RABBITMQ_LOGIN_ROUTING_KEY:user.login}
+      registered-routing-key: ${RABBITMQ_REGISTERED_ROUTING_KEY:user.registered}
+      password-reset-routing-key: ${RABBITMQ_PASSWORD_RESET_ROUTING_KEY:user.password.reset}
+  notifications:
+    sesion:
+      enabled: ${NOTIFICATION_SESION_ENABLED:false}
+
 server:
   port: ${SERVER_PORT:8081}
   servlet:

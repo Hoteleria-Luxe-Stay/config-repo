@@ -49,9 +49,27 @@ application:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200}
 
 app:
+  support:
+    email: ${SUPPORT_EMAIL:toraotrafalgar3@gmail.com}
   kafka:
     topics:
       reserva-notifications: ${KAFKA_RESERVA_NOTIFICATIONS_TOPIC:reserva.notifications}
+  rabbitmq:
+    contacto:
+      exchange: ${RABBITMQ_CONTACTO_EXCHANGE:contacto.exchange}
+      queue: ${RABBITMQ_CONTACTO_QUEUE:contacto.queue}
+      routing-key: ${RABBITMQ_CONTACTO_ROUTING_KEY:contacto.routingkey}
+    sesion:
+      exchange: ${RABBITMQ_SESION_EXCHANGE:sesion.exchange}
+      queue: ${RABBITMQ_SESION_QUEUE:sesion.queue}
+      routing-key: ${RABBITMQ_SESION_ROUTING_KEY:sesion.routingkey}
+  notifications:
+    reserva:
+      enabled: ${NOTIFICATION_RESERVA_ENABLED:false}
+    sesion:
+      enabled: ${NOTIFICATION_SESION_ENABLED:false}
+    contacto:
+      enabled: ${NOTIFICATION_CONTACTO_ENABLED:true}
 
 internal:
   auth-service:
